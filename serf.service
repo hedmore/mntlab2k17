@@ -1,0 +1,18 @@
+# Serf Agent service
+
+[Unit]
+Description=Serf Agent
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/install -d -g root -o root /etc/serf.d/
+ExecStart=/usr/local/bin/serf agent -config-dir=/etc/serf.d/
+User=serf
+KillSignal=SIGINT
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
