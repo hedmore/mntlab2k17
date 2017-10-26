@@ -11,7 +11,7 @@ chmod 755 /usr/local/tomcat/apache-tomcat-9.0.1
 chmod +x /usr/local/tomcat/apache-tomcat-9.0.1/bin/*.sh
 
 # copy configuration files
-cp -f "./deploy/xml/tomcat-users.xml" /usr/local/tomcat/apache-tomcat-9.0.1/conf/
+cp -f "/vagrant/tomcat-users.xml" /usr/local/tomcat/apache-tomcat-9.0.1/conf/
 
 # clearing operation
 rm apache-tomcat-9.0.1.zip 

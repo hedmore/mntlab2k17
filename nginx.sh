@@ -1,12 +1,13 @@
 # disable SElinux
-setenforce 0 
+	# setenforce 0 
+sed 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config 
 
 # install nginx
 yum install -y nginx  
 
 # copy configuration files
-cp -f "/conf/nginx.conf" /etc/nginx/
-cp -f "/conf/upstream.conf" /etc/nginx/conf.d/
+cp -f "/vagrant/nginx.conf" /etc/nginx/
+cp -f "/vagrant/upstream.conf" /etc/nginx/conf.d/
 
 # set up permisions 
 chown -R nginx: /etc/nginx

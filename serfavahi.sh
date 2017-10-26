@@ -20,4 +20,4 @@ wget https://releases.hashicorp.com/serf/0.8.1/serf_0.8.1_linux_amd64.zip
 cd /usr/local/bin
 tar -xvf
 chmod 755 serf 
-cp "./service/serf.service" /etc/systemd/system/serf.service
+cp "/vagrant/serf.service" /etc/systemd/system/serf.service

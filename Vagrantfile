@@ -1,4 +1,4 @@
-# base node.vm.box = 'centos-7.4-x86_64-minimal'
+# base node.vm.box = 'sbeliakou/centos-7.4-x86_64-minimal'
 
 # number of nodes
 nCounter = 2
@@ -6,7 +6,7 @@ nCounter = 2
 # nginx
 Vagrant.configure("2") do |config|
   config.vm.define "node-nginx" do |node|
-    node.vm.box = 'centos/7'
+    node.vm.box = 'centos-7.4-x86_64-minimal'
     node.vm.hostname = "node-nginx"
     node.vm.network 'private_network', ip: "192.168.10.10"
     node.ssh.insert_key = false
@@ -17,27 +17,22 @@ Vagrant.configure("2") do |config|
     end
 
     # set up serf & avahi
-    node.vm.provision 'shell', path: "./sh/serfavahi.sh" 
+    node.vm.provision 'shell', path: "/vagrant/serfavahi.sh" 
 
     # configure serf
-    node.vm.provision 'shell', inline: <<-EOF
-          systemctl 
-        EOF
+    #node.vm.provision 'shell', inline: <<-EOF
+    #      systemctl start serf
+    #    EOF
 
     # set up nginx web server
-    node.vm.provision "shell", path: "./sh/nginx.sh"
+    node.vm.provision "shell", path: "/vagrant/nginx.sh"
      
-    # configure nginx web server
-        node.vm.provision 'shell', inline: <<-EOF
-          systemctl nginx.service 
-        EOF
-
   end
   
   # tomcat
   (1..nCounter).each do |i|
     config.vm.define "node-tomcat#{i}" do |node|
-        node.vm.box = 'centos/7'
+        node.vm.box = 'centos-7.4-x86_64-minimal'
         node.vm.hostname = "node-tomcat#{i}"
         node.vm.network 'private_network', ip: "192.168.10.#{i + 10}"
         node.ssh.insert_key = false
@@ -48,15 +43,15 @@ Vagrant.configure("2") do |config|
         end
 
         # set up set up serf & avahi
-        node.vm.provision 'shell', path: "./sh/serfavahi.sh"
+        node.vm.provision 'shell', path: "/vagrant/serfavahi.sh"
          
-        configure serf
-        node.vm.provision 'shell', inline: <<-EOF
-        systemctl 
-        EOF
+        # configure serf
+        # node.vm.provision 'shell', inline: <<-EOF
+        # systemctl start serf
+        # EOF
 
         # set up tomcat app server
-        node.vm.provision "shell", path: "./sh/tomcat.sh"
+        node.vm.provision "shell", path: "/vagrant/tomcat.sh"
 
         configure tomcat app server
         node.vm.provision 'shell', inline: <<-EOF
